@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+        <title>My First Parcel App</title>
+        <link href="scss/main.scss" rel="stylesheet"/>
+        <script src="script/app.ts" type="module"></script>
+        <script crossorigin="anonymous" src="https://kit.fontawesome.com/5efd875eb0.js"></script>
+    </head>
+    <body>
+        <section class="section">
+            <div class="container">
+                <h1 class="title">
+                    Hello World
+                </h1>
+                <p class="subtitle">
+                    My first website with <strong>Bulma</strong>!
+                    <span class="icon">
+                      <i class="fas fa-home"></i>
+                    </span>
+                    sdfs
+                </p>
+            </div>
+        </section>
+        <div class="columns is-centered">
+            <div class="column is-narrow">
+                <div class="box">
+                    <div class="columns">
+                        <div class="column">
+                            <div class="field  is-horizontal has-addons">
+                                <div class="field-label is-normal">
+                                    <label class="label" for="XSS">XSS</label>
+                                </div>
+                                <p class="control">
+                                    <button id="btn-xss-dec" class="button is-danger">
+                                <span class="icon is-small">
+                                    <i class="fa-solid fa-minus"></i>
+                                </span>
+                                    </button>
+                                </p>
+                                <p class="control">
+                                    <input id="XSS" class="input" placeholder="XXS" type="number"  min="0">
+                                </p>
+                                <p class="control">
+                                    <button id="btn-xss-inc" class="button is-success">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="field">
+                                <label class="label">Capacity</label>
+                                <div class="control">
+                                    <input class="input" type="number" value="0">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
