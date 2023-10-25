@@ -1,0 +1,28 @@
+<div class="columns">
+    <div class="column">
+        <div class="field-label is-normal">
+            <label class="label" for="{{ t_shirt_size }}">{{ t_shirt_size }}</label>
+        </div>
+    </div>
+    <div class="column">
+        <div class="field  is-horizontal has-addons">
+            <p class="control">
+                <button class="button is-danger" id="btn-{{ t_shirt_size }}-dec">
+                     <span class="icon is-small">
+                    <i class="fa-solid fa-minus"></i>
+                    </span>
+                </button>
+            </p>
+            <p class="control">
+                <input class="input" id="{{ t_shirt_size }}" min="0" placeholder="{{ t_shirt_size }}" type="number">
+            </p>
+            <p class="control">
+                <button class="button is-success" id="btn-{{ t_shirt_size }}-inc">
+                <span class="icon is-small">
+                    <i class="fa-solid fa-plus"></i>
+                </span>
+                </button>
+            </p>
+        </div>
+    </div>
+</div>
