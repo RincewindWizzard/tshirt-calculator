@@ -65,10 +65,10 @@ function get_state() {
 
 function set_state(state) {
     for(let tshirt of t_shirts) {
-        tshirt.input.value = state[tshirt.name]
+        tshirt.input.value = state[tshirt.name] || 0
     }
-    input_capacity.value = state.capacity
-    input_threshold.value = state.threshold
+    input_capacity.value = state.capacity || 0
+    input_threshold.value = state.threshold || 0
     return state
 }
 
