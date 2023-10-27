@@ -1,7 +1,7 @@
 <div class="columns">
     <div class="column">
         <div class="field-label is-normal">
-            <label class="label" for="{{ t_shirt_size }}">{{ t_shirt_size }}</label>
+            <label class="label" for="input-{{ t_shirt_size }}">{{ t_shirt_size }}</label>
         </div>
     </div>
     <div class="column">
@@ -14,7 +14,7 @@
                 </button>
             </p>
             <p class="control">
-                <input class="input" id="{{ t_shirt_size }}" min="0" placeholder="{{ t_shirt_size }}" type="number">
+                <input class="input" id="input-{{ t_shirt_size }}" min="0" placeholder="{{ t_shirt_size }}" type="number">
             </p>
             <p class="control">
                 <button class="button is-success" id="btn-{{ t_shirt_size }}-inc">

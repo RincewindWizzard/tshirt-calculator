@@ -6,4 +6,4 @@ import '@fortawesome/fontawesome-free/js/regular'
 import '@fortawesome/fontawesome-free/js/brands'
 import "./css/style.scss"
 import { create_description_table, t_shirt_sizes } from "./js/t_shirt_table.js"
-
+import './js/calculator'

@@ -4,19 +4,18 @@
             <h1 class="title">
                 T-Shirt Size Capacity Calculator
             </h1>
+            <hr>
             <div class="columns">
                 <div id="t-shirt-column" class="column">
-                    {{> t_shirt_input.hbs t_shirt_size="3XS" }}
-                    {{> t_shirt_input.hbs t_shirt_size="XXS" }}
-                    {{> t_shirt_input.hbs t_shirt_size="XS" }}
-                    {{> t_shirt_input.hbs t_shirt_size="S" }}
-                    {{> t_shirt_input.hbs t_shirt_size="M" }}
-                    {{> t_shirt_input.hbs t_shirt_size="L" }}
+                    {{#each t_shirt_sizes}}
+                        {{> t_shirt_input.hbs t_shirt_size=name }}
+                    {{/each}}
                 </div>
                 <div class="column">
                     {{>  capacity-and-threshold.hbs }}
                 </div>
             </div>
+            <hr>
             {{> result.hbs }}
         </div>
     </div>
