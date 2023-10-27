@@ -1,27 +1,43 @@
-<div class="field  is-horizontal">
-    <div class="field-label is-normal">
-        <label class="label" for="capacity">Capacity</label>
+<div class="columns">
+    <div class="column">
+        <div class="field-label is-normal">
+            <label class="label" for="capacity">Capacity</label>
+        </div>
     </div>
-    <div class="control">
-        <input id="capacity" class="input" type="number" value="0">
-    </div>
-</div>
-
-<div class="field  is-horizontal">
-    <div class="field-label is-normal">
-        <label class="label" for="threshold">Threshold</label>
-    </div>
-    <div class="control">
-        <input
-                class="slider is-fullwidth has-output"
-                type="range"
-                id="threshold"
-                name="threshold"
-                min="0"
-                max="100"
-                step="1"
-                value="75"/>
-        <output for="threshold">0</output>
+    <div class="column">
+        <div class="field  is-horizontal">
+            <div class="control">
+                <input id="capacity" class="input" type="number" value="0">
+            </div>
+        </div>
     </div>
 </div>
 
+
+<div class="columns">
+    <div class="column">
+        <div class="field-label is-normal">
+            <label class="label" for="threshold">Threshold</label>
+        </div>
+
+    </div>
+    <div class="column">
+        <div class="field  is-horizontal has-addons">
+            <p class="control">
+                <input
+                        id="threshold"
+                        class="input"
+                        type="number"
+                        min="0"
+                        max="100"
+                        step="1"
+                        value="75">
+            </p>
+            <p class="control">
+                <a class="button is-static">
+                    %
+                </a>
+            </p>
+        </div>
+    </div>
+</div>
