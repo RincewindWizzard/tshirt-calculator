@@ -1,28 +1,35 @@
-<div class="columns is-centered  is-vcentered">
-    <div class="column is-narrow">
-        <div class="box">
-            <h1 class="title">
-                T-Shirt Size Capacity Calculator
-            </h1>
-            <hr>
-            <div class="columns">
-                <div id="t-shirt-column" class="column">
-                    {{#each t_shirt_sizes}}
-                        {{> t_shirt_input.hbs t_shirt_size=name }}
-                    {{/each}}
+<section class="section">
+    <div class="columns is-centered is-vcentered">
+        <div class="column is-narrow">
+            <div class="box">
+                <h1 class="title">
+                    T-Shirt Size Capacity Calculator
+                </h1>
+                <hr>
+                <div class="columns">
+                    <div id="t-shirt-column" class="column">
+                        {{#each t_shirt_sizes}}
+                            {{> t_shirt_input.hbs t_shirt_size=name }}
+                        {{/each}}
+                    </div>
+                    <div class="column">
+                        {{>  capacity-and-threshold.hbs }}
+                    </div>
                 </div>
-                <div class="column">
-                    {{>  capacity-and-threshold.hbs }}
-                </div>
+                <hr>
+                {{> result.hbs }}
             </div>
-            <hr>
-            {{> result.hbs }}
         </div>
     </div>
-</div>
+</section>
 
-<div class="columns is-centered">
-    <div class="column is-half">
-        {{> explanation.hbs }}
+
+<section class="section">
+    <div class="columns is-centered">
+        <div class="column is-half">
+            <div class="box">
+            {{> explanation.hbs }}
+            </div>
+        </div>
     </div>
-</div>
+</section>

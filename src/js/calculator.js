@@ -26,8 +26,6 @@ const output_min_capacity = document.getElementById("min_capacity");
 const output_success_probability = document.getElementById("success_probability");
 
 function update_results() {
-    console.log('update')
-
     const interval = {
         min: t_shirts
             .map((t_shirt) => t_shirt.value() * t_shirt.min)
@@ -51,7 +49,6 @@ function update_results() {
         output_min_capacity.classList.add("has-text-danger")
         output_min_capacity.classList.remove("has-text-success")
     }
-
 
     history.replaceState(null, '', '?' + query_string.stringify(get_state()));
 }
