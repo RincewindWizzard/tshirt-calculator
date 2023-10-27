@@ -12,7 +12,16 @@
         <label class="label" for="threshold">Threshold</label>
     </div>
     <div class="control">
-        <input class="slider is-fullwidth" type="range" id="threshold" name="volume" min="0" max="100"/>
+        <input
+                class="slider is-fullwidth has-output"
+                type="range"
+                id="threshold"
+                name="threshold"
+                min="0"
+                max="100"
+                step="1"
+                value="75"/>
+        <output for="threshold">0</output>
     </div>
 </div>
 
