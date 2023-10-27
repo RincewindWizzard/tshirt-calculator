@@ -1,10 +1,27 @@
 <h1 class="title">Explanation</h1>
 <p class="block">
-This is an easy calculator to estimate the amount of work you can get done during a certain period of time.
-Every work task is categorized by its size (called t-shirt size) with the following dimensions:
+    This is a simple calculator for estimating the amount of work you can complete within a specific time frame.
+    Each work task is categorized by its size, often referred to as a "t-shirt size," based on the following dimensions:
 </p>
-<div class="columns is-centered">
+<div class="columns is-centered block">
     <div class="column is-half">
-        <div id="t_shirt_table" class="table-container"></div>
+        <div id="t_shirt_table" class="table-container">
+            {{> t_shirt_table.hbs }}
+        </div>
     </div>
 </div>
+
+<p class="block">
+    All values between the minimum and maximum are equally likely.<br/>
+</p>
+<p class="block">
+    "Capacity" represents the total capability of all your workers.
+</p>
+
+<p class="block">
+    We sum the minimum and maximum values to determine a range of possible outcomes.
+    Please be aware that the probabilities within this range are not evenly distributed.
+
+    "Threshold" indicates the point within the range at which we consider the work achievable.
+    The default is 75%.
+</p>

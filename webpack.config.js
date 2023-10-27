@@ -4,6 +4,8 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const json5 = require('json5');
 
+const handlebars_context = require('./src/nodejs/handlebars_context.js')
+console.log(`Handlebars context:\n${JSON.stringify(handlebars_context, null, 2)}`)
 
 const mode = process.env.NODE_ENV || 'development';
 
@@ -50,6 +52,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './src/templates/index.hbs',
             filename: 'index.html',
+            templateParameters: handlebars_context
         }),
         new CopyWebpackPlugin({
             patterns: [

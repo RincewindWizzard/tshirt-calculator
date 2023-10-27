@@ -1,0 +1,18 @@
+<table class="table is-striped is-hoverable">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Minimum</th>
+        <th>Maximum</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each t_shirt_sizes}}
+        <tr>
+            <td>{{name}}</td>
+            <td class="has-text-right">{{min}} PT</td>
+            <td class="has-text-right">{{max}} PT</td>
+        </tr>
+    {{/each}}
+    </tbody>
+</table>
