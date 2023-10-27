@@ -2,12 +2,14 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const json5 = require('json5');
+
 
 const mode = process.env.NODE_ENV || 'development';
 
 module.exports = {
     mode,
-    entry: './src/ts/main.ts',
+    entry: './src/main.js',
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist'),
@@ -16,7 +18,7 @@ module.exports = {
         rules: [
             {
                 test: /\.tsx?$/,
-                use: 'ts-loader',
+                use: 'js-loader',
                 exclude: /node_modules/,
             },
             {
@@ -31,6 +33,17 @@ module.exports = {
                 test: /\.hbs$/,
                 use: 'handlebars-loader',
             },
+            {
+                test: /\.json5$/i,
+                type: 'json',
+                parser: {
+                    parse: json5.parse,
+                },
+            },
+            {
+                test: /\.(csv|tsv)$/i,
+                use: ['csv-loader'],
+            },
         ],
     },
     plugins: [
@@ -40,8 +53,8 @@ module.exports = {
         }),
         new CopyWebpackPlugin({
             patterns: [
-                { from: './src/images/', to: 'images' },
-                { from: './src/fonts/', to: 'fonts' },
+                {from: './src/images/', to: 'images'},
+                {from: './src/fonts/', to: 'fonts'},
             ],
         }),
         new MiniCssExtractPlugin({
@@ -49,7 +62,7 @@ module.exports = {
         }),
     ],
     resolve: {
-        extensions: ['.ts', '.js'],
+        extensions: ['.js', '.js'],
     },
     devServer: {
         static: path.join(__dirname, 'dist'),

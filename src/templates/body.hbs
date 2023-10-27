@@ -6,6 +6,7 @@
             </h1>
             <div class="columns">
                 <div id="t-shirt-column" class="column">
+                    {{> t_shirt_input.hbs t_shirt_size="3XS" }}
                     {{> t_shirt_input.hbs t_shirt_size="XXS" }}
                     {{> t_shirt_input.hbs t_shirt_size="XS" }}
                     {{> t_shirt_input.hbs t_shirt_size="S" }}
@@ -21,14 +22,8 @@
     </div>
 </div>
 
-<h1>Explanation</h1>
-This is an easy calculator to estimate the amount of work you can get done during a certain period of time.
-Every work task is categorized by its size (called t-shirt size) with the following dimensions:
-
-<table>
-    <tr>
-        <th>T-Shirt size</th>
-        <th>Work amount in PT</th>
-    </tr>
-    <tr>XXS</tr>
-</table>
+<div class="columns is-centered">
+    <div class="column is-half">
+        {{> explanation.hbs }}
+    </div>
+</div>
