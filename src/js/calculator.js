@@ -2,6 +2,8 @@ import "./t_shirt_inputs_ui"
 import {t_shirt_sizes} from "./t_shirt_table.js"
 import query_string from 'query-string';
 
+const default_threshold = 75
+
 const t_shirts = t_shirt_sizes
     .map((t_shirt) => {
         let new_shirt = {
@@ -68,8 +70,7 @@ function set_state(state) {
         tshirt.input.value = state[tshirt.name] || 0
     }
     input_capacity.value = state.capacity || 0
-    input_threshold.value = state.threshold || 0
-    return state
+    input_threshold.value = state.threshold || default_threshold
 }
 
 window.addEventListener('DOMContentLoaded', (event) => {
