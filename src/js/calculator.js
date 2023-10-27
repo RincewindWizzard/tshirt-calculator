@@ -8,7 +8,7 @@ const t_shirts = t_shirt_sizes
             input: document.getElementById(`input-${t_shirt.name}`),
             ...t_shirt
         }
-        new_shirt.value = () => parseInt(new_shirt.input.value)
+        new_shirt.value = () => parseInt(new_shirt.input.value) || 0
         return new_shirt
     })
 
@@ -35,7 +35,7 @@ function update_results() {
             .reduce((accumulator, currentValue) => accumulator + currentValue, 0)
     }
     const width = interval.max - interval.min
-    const min_capacity = Math.floor((parseInt(input_threshold.value) / 100 * width) + interval.min)
+    const min_capacity = Math.floor((parseInt(input_threshold.value) / 100 * width) + interval.min) || 0
 
     output_minimum.innerHTML = interval.min;
     output_maximum.innerHTML = interval.max;
@@ -58,8 +58,8 @@ function get_state() {
     const state = t_shirts.map((t_shirt) => ({
         [t_shirt.name]: t_shirt.value()
     })).reduce((acc, curr) => Object.assign(acc, curr), {});
-    state.capacity = parseInt(input_capacity.value)
-    state.threshold = parseInt(input_threshold.value)
+    state.capacity = parseInt(input_capacity.value) || 0
+    state.threshold = parseInt(input_threshold.value) || 0
     return state
 }
 
