@@ -1,6 +1,7 @@
 import "./t_shirt_inputs_ui"
 import {t_shirt_sizes} from "./t_shirt_table.js"
 import query_string from 'query-string';
+import {update_histogram} from './histogram'
 
 const default_threshold = 75
 
@@ -50,7 +51,10 @@ function update_results() {
         output_min_capacity.classList.remove("has-text-success")
     }
 
-    history.replaceState(null, '', '?' + query_string.stringify(get_state()));
+    let state = get_state()
+    update_histogram(state)
+
+    history.replaceState(null, '', '?' + query_string.stringify(state));
 }
 
 function get_state() {
@@ -63,7 +67,7 @@ function get_state() {
 }
 
 function set_state(state) {
-    for(let tshirt of t_shirts) {
+    for (let tshirt of t_shirts) {
         tshirt.input.value = state[tshirt.name] || 0
     }
     input_capacity.value = state.capacity || 0
