@@ -4,24 +4,33 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const json5 = require('json5');
 
-const handlebars_context = require('./src/nodejs/handlebars_context.js')
-console.log(`Handlebars context:\n${JSON.stringify(handlebars_context, null, 2)}`)
+const compile_stage = require('./src/compile_stage/compile.js')
+
+
+console.log(`Handlebars context:\n${JSON.stringify(compile_stage.template_context, null, 2)}`)
 
 const mode = process.env.NODE_ENV || 'development';
 
 module.exports = {
     mode,
-    entry: './src/main.js',
+    entry: {
+        main: './src/index.ts',
+        worker: './src/webworker/worker.ts'
+    },
     output: {
-        filename: 'bundle.js',
+        filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist'),
     },
     module: {
         rules: [
             {
                 test: /\.tsx?$/,
-                use: 'js-loader',
+                use: 'ts-loader',
                 exclude: /node_modules/,
+            },
+            {
+                test: /\.worker.ts$/,
+                use: {loader: 'worker-loader', options: {inline: true}},
             },
             {
                 test: /\.s[ca]ss$/,
@@ -52,7 +61,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './src/templates/index.hbs',
             filename: 'index.html',
-            templateParameters: handlebars_context
+            templateParameters: compile_stage.template_context
         }),
         new CopyWebpackPlugin({
             patterns: [
@@ -61,11 +70,11 @@ module.exports = {
             ],
         }),
         new MiniCssExtractPlugin({
-            filename: 'css/style.css',
+            filename: 'style/style.css',
         }),
     ],
     resolve: {
-        extensions: ['.js', '.js'],
+        extensions: ['.js', '.ts'],
     },
     devServer: {
         static: path.join(__dirname, 'dist'),
