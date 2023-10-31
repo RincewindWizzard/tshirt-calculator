@@ -10,6 +10,8 @@ export interface State {
     stageAmounts: { [key: string]: number }
 }
 
+const numberInputs: NumberInputComponent[] = []
+
 function inputsToState(inputs: NumberInputComponent[]): State {
     const result: State = {
         capacity: 0,
@@ -28,9 +30,6 @@ function inputsToState(inputs: NumberInputComponent[]): State {
     return result
 }
 
-const numberInputs: NumberInputComponent[] =
-    Array.from(document.querySelectorAll('div.ui-number-input'))
-        .map((div) => new NumberInputComponent(div as HTMLDivElement))
 
 function update() {
     const state = inputsToState(numberInputs)
@@ -44,6 +43,10 @@ function update() {
 }
 
 window.addEventListener('DOMContentLoaded', (event) => {
+    Array.from(document.querySelectorAll('div.ui-number-input'))
+        .map((div) => new NumberInputComponent(div as HTMLDivElement))
+        .forEach((input) => numberInputs.push(input))
+
     update()
     numberInputs.forEach((numberInput) => {
         numberInput.addInputListener((src) => {
