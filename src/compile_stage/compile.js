@@ -16,7 +16,7 @@ function read_csv(path) {
 }
 
 const csvData = read_csv('./src/data/t_shirt_sizes.csv');
-const t_shirt_sizes = csvData.map((x) => ({'name': x[0], 'min': x[1], 'max': x[2]}));
+const t_shirt_sizes = csvData.map((x) => ({'name': x[0]}));
 
 
 module.exports = {

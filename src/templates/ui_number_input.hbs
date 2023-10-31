@@ -1,6 +1,6 @@
 <div class="field is-horizontal ui-number-input">
     <div class="field-label is-normal">
-        <label class="label">{{ name }}</label>
+        <label class="label">{{ name }} ({{min}}/{{max}})</label>
     </div>
     <div class="field-body">
         <div class="field is-horizontal has-addons">
@@ -17,8 +17,8 @@
                 <input
                         name="{{name}}"
                         class="input input-number"
-                        min="{{min}}"
-                        max="{{max}}"
+                    {{#if min}} min="{{min}}"   {{/if}}
+                    {{#if max}} max="{{max}}"   {{/if}}
                         placeholder="{{ name }}"
                         type="number">
             </p>

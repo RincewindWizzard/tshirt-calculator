@@ -1,10 +1,13 @@
+type InputListener = (src: NumberInputComponent) => void
+
+
 export class NumberInputComponent {
     plusBtn: HTMLButtonElement | null
     minusBtn: HTMLButtonElement | null
     input: HTMLInputElement
     min: number | null
     max: number | null
-    name: string | null
+    name: string
 
     constructor(container: HTMLDivElement) {
         this.plusBtn = container.querySelector('button.btn-increment')
@@ -44,6 +47,12 @@ export class NumberInputComponent {
             } else {
                 this.setValue(lastValue)
             }
+        })
+    }
+
+    addInputListener(listener: InputListener) {
+        this.input.addEventListener('input', () => {
+            listener(this)
         })
     }
 

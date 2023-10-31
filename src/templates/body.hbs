@@ -11,6 +11,7 @@
                         {{#each t_shirt_sizes}}
                             {{> ui_number_input.hbs
                                     name=name
+                                    min="0"
                                     buttons=true}}
                         {{/each}}
                     </div>
@@ -18,15 +19,15 @@
                         {{> ui_number_input.hbs
                                 name="Capacity"
                                 buttons=false
-                                min=0
+                                min="0"
                                 unit="PT"
                         }}
 
                         {{> ui_number_input.hbs
                                 name="Threshold"
                                 buttons=false
-                                min=0
-                                max=100
+                                min="0"
+                                max="100"
                                 unit="%"
                         }}
                     </div>
