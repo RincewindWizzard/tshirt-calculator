@@ -1,0 +1,43 @@
+<div class="field is-horizontal ui-number-input">
+    <div class="field-label is-normal">
+        <label class="label">{{ name }}</label>
+    </div>
+    <div class="field-body">
+        <div class="field is-horizontal has-addons">
+            {{#if buttons}}
+                <p class="control">
+                    <button class="button is-danger btn-decrement">
+                        <span class="icon is-small">
+                            <i class="fa-solid fa-minus"></i>
+                        </span>
+                    </button>
+                </p>
+            {{/if}}
+            <p class="control">
+                <input
+                        name="{{name}}"
+                        class="input input-number"
+                        min="{{min}}"
+                        max="{{max}}"
+                        placeholder="{{ name }}"
+                        type="number">
+            </p>
+            {{#if buttons}}
+                <p class="control">
+                    <button class="button is-success btn-increment">
+                        <span class="icon is-small">
+                            <i class="fa-solid fa-plus"></i>
+                        </span>
+                    </button>
+                </p>
+            {{/if}}
+            {{#if unit}}
+                <p class="control">
+                    <a class="button is-static">
+                        {{unit}}
+                    </a>
+                </p>
+            {{/if}}
+        </div>
+    </div>
+</div>

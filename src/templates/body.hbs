@@ -7,16 +7,31 @@
                 </h1>
                 <hr>
                 <div class="columns">
-                    <div id="t-shirt-column" class="column">
+                    <div class="column">
                         {{#each t_shirt_sizes}}
-                            {{> t_shirt_input.hbs t_shirt_size=name }}
+                            {{> ui_number_input.hbs
+                                    name=name
+                                    buttons=true}}
                         {{/each}}
                     </div>
-                    <div class="column">
-                        {{>  capacity-and-threshold.hbs }}
+                    <div class="column capacity-column">
+                        {{> ui_number_input.hbs
+                                name="Capacity"
+                                buttons=false
+                                min=0
+                                unit="PT"
+                        }}
+
+                        {{> ui_number_input.hbs
+                                name="Threshold"
+                                buttons=false
+                                min=0
+                                max=100
+                                unit="%"
+                        }}
                     </div>
                 </div>
-                <hr>
+                <hr class="hr">
                 {{> result.hbs }}
             </div>
         </div>
