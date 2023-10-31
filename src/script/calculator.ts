@@ -1,7 +1,7 @@
 import {TShirt, tShirtSizesByName} from "./t_shirt"
 
 
-interface StageResult {
+export interface StageResult {
     minimum: number,
     maximum: number,
     minCapacity: number,
@@ -9,7 +9,7 @@ interface StageResult {
     histogram: { [key: number]: number }
 }
 
-type StageResultCallback = (result: StageResult) => void
+export type StageResultCallback = (result: StageResult) => void
 
 function amountsToStage(stageAmounts: { [key: string]: number }): TShirt[] {
     const stage: TShirt[] = []
@@ -38,8 +38,8 @@ export function calculateStage(capacity: number, threshold: number, stageAmounts
 
     callback({
         histogram: {},
-        minimum: interval.max,
-        maximum: interval.min,
+        minimum: interval.min,
+        maximum: interval.max,
         minCapacity: minCapacity,
         successProbability: NaN
     })

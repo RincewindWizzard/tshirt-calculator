@@ -1,9 +1,10 @@
-import {calculateStage} from "./calculator"
+// import {calculateStage} from "./calculator"
 import {NumberInputComponent} from "./ui_number_input"
-//import {TShirt, tShirtSizesByName} from "./t_shirt"
+import {TShirt, tShirtSizesByName} from "./t_shirt"
+import {calculateStage, StageResult, StageResultCallback} from "./calculator";
+import {updateResult} from './ui_result'
 
-
-interface State {
+export interface State {
     capacity: number,
     threshold: number,
     stageAmounts: { [key: string]: number }
@@ -20,24 +21,33 @@ function inputsToState(inputs: NumberInputComponent[]): State {
             result.capacity = input.getValue()
         } else if (input.name === "Threshold") {
             result.threshold = input.getValue()
-        } /*else if (input.name in tShirtSizesByName) {
+        } else if (input.name in tShirtSizesByName) {
             result.stageAmounts[input.name] = input.getValue()
-        }*/
+        }
     }
     return result
 }
 
+const numberInputs: NumberInputComponent[] =
+    Array.from(document.querySelectorAll('div.ui-number-input'))
+        .map((div) => new NumberInputComponent(div as HTMLDivElement))
 
+function update() {
+    const state = inputsToState(numberInputs)
 
+    calculateStage(
+        state.capacity,
+        state.threshold,
+        state.stageAmounts,
+        (result) => updateResult(state, result)
+    )
+}
 
 window.addEventListener('DOMContentLoaded', (event) => {
-    const numberInputs: NumberInputComponent[] =
-        Array.from(document.querySelectorAll('div.ui-number-input'))
-            .map((div) => new NumberInputComponent(div as HTMLDivElement))
-
+    update()
     numberInputs.forEach((numberInput) => {
         numberInput.addInputListener((src) => {
-            console.log(inputsToState(numberInputs))
+            update()
         })
     })
 });

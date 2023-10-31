@@ -10,3 +10,7 @@ import "./style/main.scss"
 
 
 import "./script/ui_tshirt_calculator"
+
+// // @ts-ignore
+// import {t_shirt_sizes} from "./js/t_shirt_table"
+// console.log(t_shirt_sizes)

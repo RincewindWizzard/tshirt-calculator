@@ -40,6 +40,9 @@ export class NumberInputComponent {
         // check validity of input
         let lastValue = 0
         this.input.addEventListener('input', () => {
+            if (this.input.value === '') {
+                this.input.value = '0'
+            }
             let currentValue = parseInt(this.input.value)
             if (!isNaN(currentValue)) {
                 lastValue = currentValue

@@ -1,5 +1,6 @@
 // @ts-ignore
-import t_shirt_size_csv from '../data/t_shirt_sizes.csv';
+import {t_shirt_sizes} from '../js/csv_import_hack.js'
+
 
 export interface TShirt {
     name: string,
@@ -7,7 +8,7 @@ export interface TShirt {
     max: number
 }
 
-export const tShirtSizes = t_shirt_size_csv
+export const tShirtSizes: TShirt[] = t_shirt_sizes
     .map((x: string[]): TShirt => ({
         name: x[0],
         min: parseInt(x[1]),
@@ -15,8 +16,10 @@ export const tShirtSizes = t_shirt_size_csv
     }))
 
 
-export const tShirtSizesByName: { [key: string]: TShirt } = tShirtSizes
-    .reduce((result: { [key: string]: TShirt }, tShirt: TShirt) => {
-        result[tShirt.name] = tShirt;
-        return result;
-    }, {});
+export const tShirtSizesByName: { [key: string]: TShirt } = {}
+
+tShirtSizes.forEach((tShirt) => {
+    console.log(tShirt)
+    tShirtSizesByName[tShirt.name] = tShirt
+})
+
