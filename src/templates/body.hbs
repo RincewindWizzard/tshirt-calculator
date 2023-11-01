@@ -10,6 +10,7 @@
                     <div class="column">
                         {{#each t_shirt_sizes}}
                             {{> ui_number_input.hbs
+                                    id=id
                                     name=name
                                     min="0"
                                     buttons=true}}
@@ -17,6 +18,7 @@
                     </div>
                     <div class="column capacity-column">
                         {{> ui_number_input.hbs
+                                id="capacity"
                                 name="Capacity"
                                 buttons=false
                                 min="0"
@@ -24,6 +26,7 @@
                         }}
 
                         {{> ui_number_input.hbs
+                                id="threshold"
                                 name="Threshold"
                                 buttons=false
                                 min="0"

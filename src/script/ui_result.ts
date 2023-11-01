@@ -1,5 +1,4 @@
-import {StageResult} from "./calculator";
-import {State} from "./ui_tshirt_calculator";
+import {StageResult, State} from "./state";
 
 const minimum: HTMLParagraphElement = document.querySelector('#minimum') as HTMLParagraphElement
 const maximum: HTMLParagraphElement = document.querySelector('#maximum') as HTMLParagraphElement
@@ -7,7 +6,7 @@ const minCapacity: HTMLParagraphElement = document.querySelector('#min_capacity'
 const successProbability: HTMLParagraphElement = document.querySelector('#success_probability') as HTMLParagraphElement
 
 
-export function updateResult(state: State, result: StageResult) {
+function updateResult(state: State, result: StageResult) {
     console.log(result)
     minimum.innerHTML = `${result.minimum}`
     maximum.innerHTML = `${result.maximum}`
@@ -22,4 +21,9 @@ export function updateResult(state: State, result: StageResult) {
         minCapacity.classList.add("has-text-danger")
         minCapacity.classList.remove("has-text-success")
     }
+}
+
+
+export default {
+    updateResult: updateResult
 }

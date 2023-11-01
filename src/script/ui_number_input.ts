@@ -80,5 +80,9 @@ export class NumberInputComponent {
         }
     }
 
+    getId() {
+        return this.input.id.replace(/^number-input-/, "")
+    }
+
 }
 

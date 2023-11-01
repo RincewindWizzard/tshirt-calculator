@@ -1,56 +1,53 @@
 // import {calculateStage} from "./calculator"
 import {NumberInputComponent} from "./ui_number_input"
-import {TShirt, tShirtSizesByName} from "./t_shirt"
-import {calculateStage, StageResult, StageResultCallback} from "./calculator";
-import {updateResult} from './ui_result'
+import {TShirt, tShirtSizesById} from "./t_shirt"
+import {calculateStage, StageResultCallback} from "./calculator";
+import UiResult from './ui_result'
+import query_string from 'query-string';
+import {State} from "./state";
 
-export interface State {
-    capacity: number,
-    threshold: number,
-    stageAmounts: { [key: string]: number }
+
+const numberInputsById: { [key: string]: NumberInputComponent } = {}
+
+function getState(): State {
+    const values: [string, number][] = Object.values(numberInputsById)
+        .map((x) => [x.name.toLowerCase(), x.getValue()])
+    return State.fromValues(values)
 }
 
-const numberInputs: NumberInputComponent[] = []
-
-function inputsToState(inputs: NumberInputComponent[]): State {
-    const result: State = {
-        capacity: 0,
-        threshold: 0,
-        stageAmounts: {},
+function setState(state: State) {
+    for (const [key, value] of Object.entries(state.toValues())) {
+        numberInputsById[key].setValue(value, true)
     }
-    for (let input of inputs) {
-        if (input.name === "Capacity") {
-            result.capacity = input.getValue()
-        } else if (input.name === "Threshold") {
-            result.threshold = input.getValue()
-        } else if (input.name in tShirtSizesByName) {
-            result.stageAmounts[input.name] = input.getValue()
-        }
-    }
-    return result
 }
 
 
-function update() {
-    const state = inputsToState(numberInputs)
+function updateResult() {
+    const state = getState()
 
-    calculateStage(
-        state.capacity,
-        state.threshold,
-        state.stageAmounts,
-        (result) => updateResult(state, result)
-    )
+    // update browser address bar
+    history.replaceState(null, '', '?' + state.toUrlParam());
+
+    calculateStage(state, (result) => UiResult.updateResult(state, result))
 }
+
 
 window.addEventListener('DOMContentLoaded', (event) => {
+    const numberInputs: NumberInputComponent[] = []
     Array.from(document.querySelectorAll('div.ui-number-input'))
         .map((div) => new NumberInputComponent(div as HTMLDivElement))
         .forEach((input) => numberInputs.push(input))
 
-    update()
+    numberInputs.forEach((x) => numberInputsById[x.getId()] = x)
+
+    // set the current state from URL params
+    const location = new URL(window.location.href);
+    setState(State.fromUrlParams(location.searchParams))
+
+    updateResult()
     numberInputs.forEach((numberInput) => {
         numberInput.addInputListener((src) => {
-            update()
+            updateResult()
         })
     })
 });
