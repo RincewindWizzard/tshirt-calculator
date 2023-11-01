@@ -21,7 +21,7 @@ export class NumberInputComponent {
 
         this.min = this.input.min ? parseInt(this.input.min) : null
         this.max = this.input.max ? parseInt(this.input.max) : null
-        this.default_value = parseInt(this.input.value) || this.min || 0
+        this.default_value =  0 >= (this.min || 0) ? 0 : (this.min || 0)
         this.name = this.input.name
 
 

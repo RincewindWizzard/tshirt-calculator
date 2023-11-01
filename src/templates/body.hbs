@@ -12,7 +12,7 @@
                             {{> ui_number_input.hbs
                                     id=id
                                     name=name
-                                    min="0"
+                                    min_value="0"
                                     buttons=true}}
                         {{/each}}
                     </div>
@@ -21,7 +21,7 @@
                                 id="capacity"
                                 name="Capacity"
                                 buttons=false
-                                min="0"
+                                min_value="0"
                                 unit="PT"
                         }}
 
@@ -29,8 +29,8 @@
                                 id="confidenceLevel"
                                 name="Confidence Level"
                                 buttons=false
-                                min="0"
-                                max="100"
+                                min_value="0"
+                                max_value="100"
                                 value="95"
                                 unit="%"
                         }}

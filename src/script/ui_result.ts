@@ -27,6 +27,14 @@ function updateResult(state: State, result: StageResult) {
         minCapacity.classList.remove("has-text-success")
     }
 
+    if (result.thirdQuartile <= state.capacity) {
+        thirdQuartile.classList.add("has-text-success")
+        thirdQuartile.classList.remove("has-text-danger")
+    } else {
+        thirdQuartile.classList.add("has-text-danger")
+        thirdQuartile.classList.remove("has-text-success")
+    }
+
     plotHistogram(result.histogram, state.capacity)
 }
 
@@ -36,6 +44,17 @@ function plotHistogram(data: Histogram, capacity: number | null = null) {
     const width = histogramDiv.clientWidth
     const height = histogramDiv.clientHeight
     const margin = {top: 20, right: 20, bottom: 30, left: 60};
+
+    const dataBelowCapacity: [number, number][] = data.filter(point => (!capacity) || point[0] <= capacity)
+    const dataAboveCapacity: [number, number][] = data.filter(point => (!!capacity) && point[0] > capacity)
+
+
+    if (dataBelowCapacity.length > 1) {
+        dataBelowCapacity.push([dataBelowCapacity[dataBelowCapacity.length - 1][0] + 1, 0])
+    }
+    if (dataAboveCapacity.length > 0) {
+        dataAboveCapacity.unshift([dataAboveCapacity[0][0] - 1, 0])
+    }
 
     const defaultMaxX = 10;
     const xScale = d3.scaleLinear()
@@ -58,16 +77,23 @@ function plotHistogram(data: Histogram, capacity: number | null = null) {
 
 
     const svg = d3.create("svg")
-        .attr("width", width) // Breite des SVG-Containers
-        .attr("height", height); // Höhe des SVG-Containers
+        .attr("width", width)
+        .attr("height", height)
 
 
     svg.append("path")
-        .datum(data)
+        .datum(dataBelowCapacity)
         .attr("d", line)
-        .style("fill", "lightsteelblue")
-        .attr("stroke", "lightsteelblue")
-        .attr("stroke-width", 2);
+        .style("fill", "#48c78e")
+        .attr("stroke", "black")
+        .attr("stroke-width", 1);
+
+    svg.append("path")
+        .datum(dataAboveCapacity)
+        .attr("d", line)
+        .style("fill", "#f14668")
+        .attr("stroke", "black")
+        .attr("stroke-width", 1);
 
     const xAxis = (g: any) => g
         .attr("transform", `translate(0,${height - margin.bottom})`)
