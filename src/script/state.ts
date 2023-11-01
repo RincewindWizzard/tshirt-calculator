@@ -1,15 +1,17 @@
 import {TShirt, tShirtSizesById} from "./t_shirt";
 import query_string from "query-string";
 
-
+export type Histogram = [number, number][]
 export interface StageResult {
     minimum: number,
     maximum: number,
     minCapacity: number,
     successProbability: number,
-    histogram: { [key: number]: number }
+    histogram: Histogram
 }
 
+export type StageAmounts = { [key: string]: number }
+export type Stage = [TShirt, number][]
 
 /**
  * Immutable class representing the current state of input
@@ -17,7 +19,7 @@ export interface StageResult {
 export class State {
     readonly capacity: number
     readonly threshold: number
-    readonly stageAmounts: { [key: string]: number }
+    readonly stageAmounts: StageAmounts
 
     constructor(values: { [key: string]: number } = {}) {
         this.stageAmounts = {}
@@ -49,15 +51,10 @@ export class State {
         return new State(numberValues)
     }
 
-    toStage(): TShirt[] {
-        const stage: TShirt[] = []
-        for (const [name, count] of Object.entries(this.stageAmounts)) {
-            const tShirt = tShirtSizesById[name]
-            for (let i = 0; i < count; i++) {
-                stage.push(tShirt)
-            }
-        }
-        return stage
+    toStage(): Stage {
+        return Object.entries(this.stageAmounts)
+            .map((x) => [tShirtSizesById[x[0]], x[1]] as [TShirt, number])
+            .sort((a, b) => a[0].min - b[0].min)
     }
 
     toValues(): { [key: string]: number } {
