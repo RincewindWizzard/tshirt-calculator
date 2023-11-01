@@ -8,6 +8,7 @@ export class NumberInputComponent {
     min: number | null
     max: number | null
     name: string
+    default_value: number
 
     constructor(container: HTMLDivElement) {
         this.plusBtn = container.querySelector('button.btn-increment')
@@ -20,9 +21,11 @@ export class NumberInputComponent {
 
         this.min = this.input.min ? parseInt(this.input.min) : null
         this.max = this.input.max ? parseInt(this.input.max) : null
+        this.default_value = parseInt(this.input.value) || this.min || 0
         this.name = this.input.name
 
-        console.log(`${this.name}, ${this.min}, ${this.max}`)
+
+        console.log(`${this.name}, ${this.min}, ${this.max}, default= ${this.default_value}`)
 
         // add button functionality
         if (this.plusBtn) {
@@ -38,10 +41,10 @@ export class NumberInputComponent {
         }
 
         // check validity of input
-        let lastValue = 0
+        let lastValue = this.default_value
         this.input.addEventListener('input', () => {
             if (this.input.value === '') {
-                this.input.value = '0'
+                this.input.value = `${this.default_value}`
             }
             let currentValue = parseInt(this.input.value)
             if (!isNaN(currentValue)) {
@@ -60,7 +63,7 @@ export class NumberInputComponent {
     }
 
     getValue(): number {
-        return parseInt(this.input.value) || 0
+        return parseInt(this.input.value) || this.default_value
     }
 
     setValue(value: number, preventInputEvent: boolean | undefined = false) {

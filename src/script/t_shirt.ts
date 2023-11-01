@@ -14,7 +14,7 @@ export class TShirt {
     }
 
     getId(): string {
-        return this.name.toLowerCase()
+        return this.name
     }
 }
 

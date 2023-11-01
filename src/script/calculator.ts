@@ -15,15 +15,56 @@ export function calculateStage(state: State, callback: StageResultCallback) {
             .reduce((accumulator, currentValue) => accumulator + currentValue, 0)
     }
 
-    const minCapacity = Math.floor((state.threshold / 100 * (interval.max - interval.min)) + interval.min) || 0
+    const thirdQuartile = Math.floor((3 / 4 * (interval.max - interval.min)) + interval.min) || 0
 
+    const histogram = toHistogram(naiveCombinations(stage))
     callback({
-        histogram: toHistogram(naiveCombinations(stage)),
+        histogram: normalizeHistogram(histogram),
         minimum: interval.min,
         maximum: interval.max,
-        minCapacity: minCapacity,
-        successProbability: NaN
+        thirdQuartile: thirdQuartile,
+        minCapacity: calculateMinimumCapacity(histogram, state.confidenceLevel / 100),
+        successProbability: calculateSuccessProbability(histogram, state.capacity)
     })
+}
+
+function normalizeHistogram(histogram: Histogram): Histogram {
+    const sum = histogram
+        .map((point) => point[1])
+        .reduce((acc, elem) => acc + elem, 0)
+
+    return histogram.map((point) => [point[0], point[1] / sum])
+}
+
+function calculateMinimumCapacity(histogram: Histogram, confidenceLevel: number): number {
+    const sum = histogram
+        .map((point) => point[1])
+        .reduce((acc, elem) => acc + elem, 0)
+
+
+    let rollingSum = 0
+    for (const [x, y] of histogram) {
+        if((rollingSum + y) / sum > confidenceLevel) {
+            return x
+        }
+        rollingSum += y
+    }
+
+
+    return NaN
+}
+
+function calculateSuccessProbability(histogram: Histogram, capacity: number): number {
+    const underCapacity = histogram
+        .filter((point) => point[0] <= capacity)
+        .map((p) => p[1])
+        .reduce((acc, elem) => acc + elem, 0)
+
+    const sum = histogram
+        .map((point) => point[1])
+        .reduce((acc, elem) => acc + elem, 0)
+
+    return underCapacity / sum
 }
 
 function toStage(stageAmounts: StageAmounts): TShirt[] {
@@ -86,7 +127,7 @@ function naiveCombinations(stage: Stage): IndexedHistogram {
     const tail = naiveCombinations(stage)
     const head: IndexedHistogram = new Map()
 
-    if(tail.size > 0) {
+    if (tail.size > 0) {
         for (const [pt, count] of tail.entries()) {
             for (let tShirtPt = tShirt.min; tShirtPt <= tShirt.max; tShirtPt++) {
                 const newPt = pt + tShirtPt

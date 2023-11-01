@@ -6,6 +6,7 @@ export interface StageResult {
     minimum: number,
     maximum: number,
     minCapacity: number,
+    thirdQuartile: number,
     successProbability: number,
     histogram: Histogram
 }
@@ -18,14 +19,15 @@ export type Stage = [TShirt, number][]
  * */
 export class State {
     readonly capacity: number
-    readonly threshold: number
+    readonly confidenceLevel: number
     readonly stageAmounts: StageAmounts
 
     constructor(values: { [key: string]: number } = {}) {
+        console.log(values)
         this.stageAmounts = {}
 
         this.capacity = values.capacity || 0
-        this.threshold = values.threshold || 0
+        this.confidenceLevel = values.confidenceLevel || 95
 
         for (let key in values) {
             if (key in tShirtSizesById) {
@@ -33,6 +35,7 @@ export class State {
             }
         }
         this.stageAmounts = Object.freeze(this.stageAmounts)
+        console.log(this)
     }
 
     public static fromValues(values: [string, number][]): State {
@@ -60,7 +63,7 @@ export class State {
     toValues(): { [key: string]: number } {
         return {
             capacity: this.capacity,
-            threshold: this.threshold,
+            confidenceLevel: this.confidenceLevel,
             ...this.stageAmounts
         }
     }

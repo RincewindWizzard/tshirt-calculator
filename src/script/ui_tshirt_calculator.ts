@@ -11,13 +11,14 @@ const numberInputsById: { [key: string]: NumberInputComponent } = {}
 
 function getState(): State {
     const values: [string, number][] = Object.values(numberInputsById)
-        .map((x) => [x.name.toLowerCase(), x.getValue()])
+        .map((x) => [x.getId(), x.getValue()])
     return State.fromValues(values)
 }
 
 function setState(state: State) {
     for (const [key, value] of Object.entries(state.toValues())) {
-        numberInputsById[key].setValue(value, true)
+
+        numberInputsById[key]?.setValue(value, true)
     }
 }
 
