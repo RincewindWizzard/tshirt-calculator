@@ -1,5 +1,5 @@
 // @ts-ignore
-import {t_shirt_sizes} from '../js/csv_import_hack.js'
+import {t_shirt_sizes} from './csv_import_hack.js'
 
 
 export class TShirt {

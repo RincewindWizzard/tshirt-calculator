@@ -1,3 +1,5 @@
+// TODO: part of the heavy weight calculations of calculator.ts schon be done in a web worker
+
 self.onmessage = (event) => {
     const message = event.data
     if (message.type === 'request') {

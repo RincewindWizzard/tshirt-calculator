@@ -51,7 +51,7 @@ function calculateMinimumCapacity(histogram: Histogram, confidenceLevel: number)
     }
 
 
-    return NaN
+    return histogram[histogram.length - 1][0]
 }
 
 function calculateSuccessProbability(histogram: Histogram, capacity: number): number {
