@@ -59,20 +59,20 @@ function plotHistogram(data: Histogram, capacity: number | null = null) {
     const defaultMaxX = 10;
     const xScale = d3.scaleLinear()
         .domain([
-            d3.min(data, d => d[0]) || 0,
-            d3.max(data, d => d[0]) || defaultMaxX])
+            d3.min(data, (d : [number, number]) => d[0]) || 0,
+            d3.max(data, (d : [number, number]) => d[0]) || defaultMaxX])
         .range([margin.left, width - margin.right]);
 
     const defaultMaxY = 10;
-    const maxY = d3.max(data, d => d[1]) || defaultMaxY
+    const maxY = d3.max(data, (d : [number, number]) => d[1]) || defaultMaxY
     const yScale = d3.scaleLinear()
         .domain([0, maxY])
         .range([height - margin.bottom, margin.top]);
 
 
     const line = d3.line()
-        .x(d => xScale(d[0]))
-        .y(d => yScale(d[1]))
+        .x((d : [number, number]) => xScale(d[0]))
+        .y((d : [number, number]) => yScale(d[1]))
         .curve(d3.curveStep)
 
 
@@ -105,7 +105,7 @@ function plotHistogram(data: Histogram, capacity: number | null = null) {
     const yAxis = (g: any) => g
         .attr("transform", `translate(${margin.left},0)`)
         .call(d3.axisLeft(yScale)
-            .tickFormat((value) => {
+            .tickFormat((value : d3.NumberValue): string => {
                 if (maxY !== 0) {
                     return `${(value as number / maxY * 100).toFixed(0)} %μ`;
                 } else {
